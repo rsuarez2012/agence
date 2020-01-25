@@ -13,14 +13,12 @@ use App\CaoUsuario;
 
 Route::get('/', function () {
 	//$caos = App\CaoUsuario::all();
-	$caos = DB::table('cao_usuario')
-				->join('permissao_sistema', 'cao_usuario.co_usuario', '=', 'permissao_sistema.co_usuario')->get();
-	
+	$caos = DB::table('cao_usuario')->join('permissao_sistema', function($join) {
+		$join->on('cao_usuario.co_usuario', '=', 'permissao_sistema.co_usuario')->where('permissao_sistema.in_ativo', '=', 'S');
+	})->orderBy('cao_usuario.no_usuario')->get();
+				
     return view('dashboard', compact('caos'));
 });
 
 
-
-
-
-Route::get('consultores/{co_usuario}', 'TaskController@agence');
+Route::post('consultores/ganancias', 'Admin\CaosOsController@profits');
