@@ -284,7 +284,7 @@
                   <table class="table" cellspacing=1 cellpadding=3 
                     bgcolor=#cccccc  id="pesquisaAvancada">
                     <tbody>
-                      <tr bgcolor=#efefef>
+                      <!--<tr bgcolor=#efefef>
                         <td colspan=5><span class="style3">Ana Paula Fontes Martins Chiodaro</span> </td>
                       </tr>
                       <tr bgcolor=#fafafa>
@@ -314,7 +314,7 @@
                         <td><div align="right"><font color="#000000">- R$ 4.000,00</font></div></td>
                         <td><div align="right"><font color="#000000">- R$ 3.500,00</font></div></td>
                         <td><div align="right"><font color="#0000FF">R$ 19.000,00</font></div></td>
-                      </tr>
+                      </tr>-->
                     </tbody>
                   </table>
                 </div>

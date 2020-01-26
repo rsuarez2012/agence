@@ -211,18 +211,53 @@ desired effect
       var valores = $('#my-select').val();
       var desde = $('#desde').val();
       var hasta = $('#hasta').val();
-      alert(desde+' '+hasta+' '+valores);
-      $.ajax({
-        url: 'consultores/' + valores,
-        type: 'GET',
-        //dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-        //data: {_token: $('#signup-token').val()},
-        success: function()
-        {
-          $('#re_co').show();
+      
+      //verficacion selector fecha inicio
+      if(desde.length == 0) {
+        alert('Debe seleccionar inicio rango de fecha');
+        return;
+      }
 
-        }
-      });
+      //verficacion selector fecha fin
+      if(hasta.length == 0) {
+        alert('Debe seleccionar fin rango de fecha');
+        return;
+      }
+
+      //verficacion selector consultores
+      if(valores == null) {
+        alert('Debe seleccionar al menos un consultor de la lista');
+        return;
+      }
+
+      $.ajax({
+        url: 'consultores/ganancias',
+        type: 'POST',
+        //dataType: 'json',
+        data: {_token: $('#signup-token').val(), desde: desde, hasta: hasta, consultores: valores},
+        }).done(function(data)
+        {
+          console.log(data);
+            $('#pesquisaAvancada').append('<tr bgcolor="#efefef"><td colspan=5><span class="style3">Ana Paula Fontes Martins Chiodaro</span></td></tr><tr bgcolor=#fafafa>\
+                <td nowrap><div align="center"><strong>Per&iacute;odo</strong></div></td>\
+                        <td><div align="center"><strong>Receita L&iacute;quida </strong></div></td>\
+                        <td><div align="center"><strong>Custo Fixo </strong></div></td>\
+                        <td><div align="center"><strong>Comiss&atilde;o</strong></div></td>\
+                        <td><div align="center"><strong>Lucro</strong></div></td>\
+                      </tr>');
+              $.each(data.facturas, function(index, factura) {
+
+                  $('#pesquisaAvancada').append('<tr bgcolor="#fafafa">\
+                        <td nowrap>'+ factura.data_emissao +'</td>]\
+                        <td><div align="right">'+factura.total+'</div></td>\
+                        <td><div align="right">- R$ 2.000,00</div></td>\
+                        <td><div align="right">- R$ 1.000,00</div></td>\
+                        <td><div align="right"><font color="#FF0000">- R$ 1.500,00</font></div></td>\
+                      </tr>');
+              });
+            $('#re_co').css('display', 'block');
+
+        });
       
     
     });
